@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Soorya's GIF Search Engine</title>
+<style>
+.search-input-rounded
+{
+border:2px solid red;
+width:250px;
+height:30px;
+}
+.search_button
+{
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+</style>
+</head>
+<body>
+<center>
+  <h1 style="color:red;font-family:verdana;">Explore the Gifs! </h1>
+  <div class="info">
+    <p style="color:purple;font-family:courier;font-size:20pt;"><strong> <marquee>Search the Necessary GIF below..!!</strong></marquee></p>
+<br>
+<br>
+      <form class="gif-form">
+        <input type="text" id="form-value" class="search-input-rounded">
+<br>
+<br>
+        <button type="submit" class="search_button"> Search </button>
+<br>
+<br> 
+      </form>
+      <div class="rando_facts animated bounceIn">
+        <img id="here_is_gif" src=""/>
+      </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript">
+    $( document ).ready(function(){
+      $('.search_button').on('click', function(){
+        var userInput = $('#form-value').val().trim();
+        userInput = userInput.replace(/ /g, "+");
+        var queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + userInput + '&api_key=dc6zaTOxFJmzC';
+        $.ajax({url: queryURL, method: 'GET'}).done(function(response){
+          console.log(response.data);
+          var giphyURL = response.data[0].images.fixed_height.url;
+          console.log(giphyURL)
+          $('#here_is_gif').attr('src', giphyURL);
+        });
+        return false;
+      })
+    });
+  </script>
+</center>
+</body>
+</html>
+
+
+
